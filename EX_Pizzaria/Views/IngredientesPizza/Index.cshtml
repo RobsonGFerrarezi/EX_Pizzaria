@@ -1,0 +1,37 @@
+﻿@model List<IngredientesPizzaViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Listagem de Ingredientes da Pizza</h2>
+
+<a href="/IngredientesPizza/criaIngrediente?pizzaID=@ViewBag.PizzaId" class="btn btn-info">Novo Registro</a>
+<br />
+
+<table class="table table-responsive table-hover">
+    <tr>
+        <th>Ações</th>
+        <th>Código</th>
+        <th>Nome</th>
+    </tr>
+    @foreach (var ingrediente in Model)
+    {
+        <tr>
+            <td>
+                <a href="/ingredientesPizza/edit?id=@ingrediente.Id" class="btn btn-info">Editar</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="javascript:confirma(@ingrediente.Id)" class="btn btn-danger">Apagar</a>
+
+            </td>
+            <td>@ingrediente.Id</td>
+            <td>@ingrediente.Descricao</td>
+        </tr>
+    }
+</table>
+
+<script>
+    function confirma(id) {
+        if (confirm('Deseja mesmo apagar?')) {
+            location.href = '/ingredientesPizza/delete?id=' + id;
+        }
+    }
+</script>

@@ -1,0 +1,38 @@
+﻿@model List<PizzaViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Listagem de Pizzas</h2>
+
+<a href="/pizza/create" class="btn btn-info">Novo Registro</a>
+<br />
+
+<table class="table table-responsive table-hover">
+    <tr>
+        <th>Ações</th>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Ingredientes</th>
+    </tr>
+    @foreach (var pizza in Model)
+    {
+        <tr>
+            <td>
+                <a href="/pizza/edit?id=@pizza.Id" class="btn btn-info">Editar</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="javascript:confirmaExclusao(@pizza.Id)" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@pizza.Id</td>
+            <td>@pizza.Descricao</td>
+            <td><a href="/ingredientesPizza/listaIngredientes?pizzaId=@pizza.Id" class="btn btn-success">Ingredientes</a></td>
+        </tr>
+    }
+</table>
+
+<script>
+    function confirmaExclusao(id) {
+        if (confirm('Deseja mesmo apagar essa Pizza?')) {
+            location.href = '/pizza/delete?id=' + id;
+        }
+    }
+</script>
